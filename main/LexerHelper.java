@@ -8,11 +8,15 @@ import lexer.*;
 public class LexerHelper {
 	private Hashtable table = new Hashtable();
 
-	public void print(int tag){
-		if(tag < 256)
-			System.out.println((char)tag);
+	public void print(Token token){
+		if (token.tag == Tag.NUM)
+			System.out.println("NUM: " + ((Num)token).value);
+		else if (token.tag == Tag.ID)
+			System.out.println("ID:  " + ((Word)token).lexeme);
+		else if (token.tag < 256)
+			System.out.println("     " + (char)token.tag);
 		else
-			System.out.println(table.get(tag));
+			System.out.println("     " + table.get(token.tag));
 	}
 
 	public LexerHelper() {
@@ -39,6 +43,5 @@ public class LexerHelper {
 		table.put(Tag.GE, "GE");
 		table.put(Tag.NUM, "NUM");
 		table.put(Tag.ID, "ID");
-		System.out.println("celoko");
 	}
 }

@@ -20,7 +20,7 @@ public class Main {
 		try {
 			while(true) {
 				Token token = lex.scan();
-				lexHelper.print(token.tag);
+				lexHelper.print(token);
 			}
 		} catch (IOException e) {
 			System.out.println("\nDone.");
