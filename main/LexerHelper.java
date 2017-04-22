@@ -10,13 +10,15 @@ public class LexerHelper {
 
 	public void print(Token token){
 		if (token.tag == Tag.NUM)
-			System.out.println("NUM: " + ((Num)token).value);
+			System.out.println("NUM:     " + ((Num)token).value);
 		else if (token.tag == Tag.ID)
-			System.out.println("ID:  " + ((Word)token).lexeme);
+			System.out.println("ID:      " + ((Word)token).lexeme);
+		else if (token.tag == Tag.LITERAL)
+			System.out.println("LITERAL: " + ((Word)token).lexeme);
 		else if (token.tag < 256)
-			System.out.println("     " + (char)token.tag);
+			System.out.println("         " + (char)token.tag);
 		else
-			System.out.println("     " + table.get(token.tag));
+			System.out.println("         " + table.get(token.tag));
 	}
 
 	public LexerHelper() {
@@ -43,5 +45,6 @@ public class LexerHelper {
 		table.put(Tag.GE, "GE");
 		table.put(Tag.NUM, "NUM");
 		table.put(Tag.ID, "ID");
+		table.put(Tag.LITERAL, "LITERAL");
 	}
 }

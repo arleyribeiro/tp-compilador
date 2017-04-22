@@ -22,6 +22,5 @@ public class Word extends Token {
       ne      = new Word( "<>", Tag.NE),
       le      = new Word( "<=", Tag.LE),
       ge      = new Word( ">=", Tag.GE),
-      assign  = new Word( ":=", Tag.ASSIGN),
-      comment = new Word( "//", Tag.COMMENT);
+      assign  = new Word( ":=", Tag.ASSIGN);
 }

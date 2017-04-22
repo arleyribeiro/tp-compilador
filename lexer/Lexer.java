@@ -68,9 +68,24 @@ public class Lexer {
             break;
       }
 
+      if (ch == '/' && readch('/')){
+         while (ch != '\n')
+            readch();
+
+         return scan();
+      }
+
+      if (ch == '{'){
+         while (ch != '}') {
+            readch();
+            if (ch == '\n')
+               line = line + 1;
+         }
+
+         return scan();
+      }
+
       switch(ch) {
-         case '/':
-            return readch('/') ? Word.comment : new Token('/');
          case ':':
             return readch('=') ? Word.assign : new Token(':');
          case '&':
@@ -115,6 +130,27 @@ public class Lexer {
             return w;
 
          w = new Word(s, Tag.ID);
+         words.put(s, w);
+         return w;
+      }
+
+      if (ch == '“') {
+         StringBuffer b = new StringBuffer();
+
+         do {
+            b.append(ch);
+            readch();
+         } while(ch != '”');
+         b.append(ch);
+         readch();
+
+         String s = b.toString();
+         Word w = (Word)words.get(s);
+
+         if (w != null)
+            return w;
+
+         w = new Word(s, Tag.LITERAL);
          words.put(s, w);
          return w;
       }

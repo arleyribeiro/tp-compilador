@@ -30,5 +30,5 @@ public class Tag {
 
         NUM     = 277,
         ID      = 278,
-        COMMENT = 279;
+        LITERAL = 279;
 }
