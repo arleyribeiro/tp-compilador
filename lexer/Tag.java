@@ -29,5 +29,6 @@ public class Tag {
         GE      = 276,
 
         NUM     = 277,
-        ID      = 278;
+        ID      = 278,
+        COMMENT = 279;
 }
