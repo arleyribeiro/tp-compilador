@@ -1,11 +1,11 @@
 package main;
 
 import java.io.*;
+import java.util.*;
 import lexer.*;
 
 
 public class Main {
-
 	public static void main(String[] args) {
 		String filename;
 
@@ -15,15 +15,15 @@ public class Main {
 			return;
 
 		Lexer lex = new Lexer(filename);
+		LexerHelper lexHelper = new LexerHelper();
 
 		try {
 			while(true) {
 				Token token = lex.scan();
-				System.out.println(token.tag);
+				lexHelper.print(token.tag);
 			}
 		} catch (IOException e) {
-			System.out.println("Done.");
+			System.out.println("\nDone.");
 		}
-
 	}
 }
