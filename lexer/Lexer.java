@@ -68,13 +68,14 @@ public class Lexer {
             break;
       }
 
+      //line comment
       if (ch == '/' && readch('/')){
          while (ch != '\n')
             readch();
 
          return scan();
       }
-
+      //block comment
       if (ch == '{'){
          while (ch != '}') {
             readch();
