@@ -15,7 +15,14 @@ public class Lexer {
       words.put(w.lexeme, w);
    }
 
-   public Lexer() {
+   public Lexer(String filename) {
+      try {
+         file = new FileReader (filename);
+      }
+      catch (FileNotFoundException e){
+         System.out.println("File not found.");
+      }
+
       reserve(new Word("init",    Tag.INIT));
       reserve(new Word("stop",    Tag.STOP));
       reserve(new Word("is",      Tag.IS));
@@ -36,6 +43,9 @@ public class Lexer {
 
    private void readch() throws IOException {
       ch = (char)file.read();
+
+      if (ch == 65535)
+         throw new IOException();
    }
    
    private boolean readch(char c) throws IOException {
