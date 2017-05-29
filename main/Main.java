@@ -20,6 +20,8 @@ public class Main {
 		try {
 			while(true) {
 				Token token = lex.scan();
+				Parser parser = new Parser(token);
+				parser.analysis();
 				lexHelper.print(token);
 			}
 		} catch (IOException e) {
