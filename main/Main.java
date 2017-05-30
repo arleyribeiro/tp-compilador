@@ -3,6 +3,7 @@ package main;
 import java.io.*;
 import java.util.*;
 import lexer.*;
+import parser.*;
 
 
 public class Main {
@@ -16,16 +17,8 @@ public class Main {
 
 		Lexer lex = new Lexer(filename);
 		LexerHelper lexHelper = new LexerHelper();
-
-		try {
-			while(true) {
-				Token token = lex.scan();
-				Parser parser = new Parser(token);
-				parser.analysis();
-				lexHelper.print(token);
-			}
-		} catch (IOException e) {
-			System.out.println("\nDone.");
-		}
+		
+		Parser parser = new Parser(lex);
+		parser.program();
 	}
 }

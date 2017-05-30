@@ -7,54 +7,50 @@ import symbols.*;
 public class Parser {
 
 	private Lexer lex; //lexical analyzer for this parser
-	private Token look; //lookahead
+	private Token token; //tokenahead
 	Env top = null;
 	int used = 0;
 
 	public Parser(Lexer lex) throws IOException {
 		this.lex = lex;
-		move();
+		this.move();
 	}
 
 	void move() throws IOException {
-		look = lex.scan();
-	}
-
-	void error(String s){
-		throw new Error("near line " + lex.line + ": " + s);
+		this.token = this.lex.scan();
 	}
 
 	void eat(int tag) throws IOException {
-		if(look.tag == tag) move();
-		else error("syntax error");
+		if(this.token.tag == tag)
+            this.move();
+		else
+            this.error("syntax error");
 	}
 
-	void analysis() throws IOException {
-        program();
+    void error(String s){
+        throw new Error("near line " + this.lex.line + ": " + s);
     }
 
 	//program ::= init [decl-list] stmt-list stop 
-	private void program()  throws IOException {
-		switch(look.tag) {
-			case Tag.INIT:
-				eat(Tag.INIT);
-				declList();
-				stmtlist();
-				eat(Tag.STOP);
-				break;
-
-			default:
-				error("syntax error");
-		}
+	public void program()  throws IOException {
+        if(this.token.tag == Tag.INIT) {
+            this.eat(Tag.INIT);
+            this.declList();
+            this.stmtList();
+            this.eat(Tag.STOP);
+        }
+        else {
+            this.error("syntax error");
+        }
 	}
 
 	//decl-list ::= decl “;” decl-list1
 	private void declList() throws IOException {
-		switch(look.tag) {
+		switch(token.tag) {
 			case Tag.ID:
-				decl();
-				eat(';');
-				declList1();
+				this.decl();
+				this.eat(';');
+				this.declList1();
 				break;
 
 			default:
@@ -63,7 +59,7 @@ public class Parser {
 	}
 	//decl-list1 ::= decl ;  decl-list1 | lambda
 	private void declList1() throws IOException {
-		if (look.tag == Tag.ID) {
+		if (token.tag == Tag.ID) {
 			decl();
 			eat(';');
 			declList1();
@@ -71,8 +67,8 @@ public class Parser {
 	}
 
 	//decl ::= ident-list is type
-	private void dec() throws IOException {
-		switch (look.tag) {
+	private void decl() throws IOException {
+		switch (token.tag) {
 			case Tag.ID:
 			identList();
 			eat(Tag.IS);
@@ -85,8 +81,8 @@ public class Parser {
 	}
 	
 	//ident-list ::= identifier ident-list1
-	private void indentList() throws IOExceptioin {
-		switch(look.tag) {
+	private void identList() throws IOException {
+		switch(token.tag) {
 			
 			case Tag.ID:
 				identifier();
@@ -99,17 +95,17 @@ public class Parser {
 	}
 
 	//ident-list1 ::= “,” identifier ident-list1 | lambda
-	private void indentList1() throws IOException {
-		if(look.tag == ',') {
+	private void identList1() throws IOException {
+		if(token.tag == ',') {
 			eat(',');
 			identifier();
-			indentList1();
+			identList1();
 		}
 	}
 
 	//type ::= integer | string
 	private void type()  throws IOException {
-		switch (look.tag) {
+		switch (token.tag) {
 			case Tag.INTEGER:
 				eat(Tag.INTEGER);
 				break;
@@ -125,13 +121,13 @@ public class Parser {
 
 	//stmt-list ::= stmt “;” stmt-list1
 	private void stmtList() throws IOException {
-		switch (look.tag) {
+		switch (token.tag) {
 			case Tag.ID:
 			case Tag.IF:
 			case Tag.DO:
 			case Tag.READ:
 			case Tag.WRITE:
-				smt();
+				stmt();
 				eat(';');
 				stmtList1();
 				break;
@@ -143,8 +139,8 @@ public class Parser {
 
 	//stmt-list1 :: stmt “;” stmt-list1 | lambda
 	private void stmtList1() throws IOException {
-		if (Tag.ID == look.tag || Tag.IF == look.tag || Tag.DO == look.tag || Tag.READ == look.tag || Tag.WRITE == look.tag){
-			smt();
+		if (Tag.ID == token.tag || Tag.IF == token.tag || Tag.DO == token.tag || Tag.READ == token.tag || Tag.WRITE == token.tag){
+			stmt();
 			eat(';');
 			stmtList1();
 		}
@@ -154,7 +150,7 @@ public class Parser {
 	private void stmt() throws IOException {
 		switch (token.tag) {
 			case Tag.ID:
-				assingStmt();
+				assignStmt();
 				break;
 			case Tag.IF:
                 ifStmt();
@@ -264,7 +260,7 @@ public class Parser {
     //do-suffix ::= while “(“ condition “)”
     private void doSuffix() throws IOException {
 
-        if(look.tag == Tag.WHILE) {
+        if(token.tag == Tag.WHILE) {
         	eat('(');
         	condition();
         	eat(')');
@@ -560,7 +556,7 @@ public class Parser {
         switch (token.tag) {
 
             case Tag.NUM:
-            case '0'
+            case '0':
                 integerConst();
                 break;
 
@@ -580,7 +576,7 @@ public class Parser {
         switch (token.tag) {
 
             case Tag.NUM:
-                eat(Tag.NUM)
+                eat(Tag.NUM);
                 break;
 
             case '0':
@@ -598,7 +594,7 @@ public class Parser {
         switch (token.tag) {
 
             case Tag.LITERAL:
-                eat(Tag.LITERAL)
+                eat(Tag.LITERAL);
                 break;
 
             default:
