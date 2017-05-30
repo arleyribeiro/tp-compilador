@@ -8,7 +8,6 @@ public class Parser {
 
 	private Lexer lex; //lexical analyzer for this parser
 	private Token token; //tokenahead
-	Env top = null;
 	int used = 0;
 
 	public Parser(Lexer lex) throws IOException {

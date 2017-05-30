@@ -18,7 +18,12 @@ public class Main {
 		Lexer lex = new Lexer(filename);
 		LexerHelper lexHelper = new LexerHelper();
 		
-		Parser parser = new Parser(lex);
-		parser.program();
+		try	{
+			Parser parser = new Parser(lex);
+			parser.program();
+		}
+		catch(IOException e) {
+			System.out.println("ok");
+		}
 	}
 }
