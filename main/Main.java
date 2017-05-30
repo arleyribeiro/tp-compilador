@@ -17,13 +17,20 @@ public class Main {
 
 		Lexer lex = new Lexer(filename);
 		LexerHelper lexHelper = new LexerHelper();
+	
+		// while(true) {
+		// 	Token token = lex.scan();
+		// 	lexHelper.print(token);
+
+		// 	if(token.tag == Tag.EOF)
+		// 		break;
+		// }
 		
-		try	{
+		try {
 			Parser parser = new Parser(lex);
 			parser.program();
-		}
-		catch(IOException e) {
-			System.out.println("ok");
+		} catch(IOException e){
+			e.printStackTrace();
 		}
 	}
 }

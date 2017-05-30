@@ -23,24 +23,22 @@ public class Parser {
 		if(this.token.tag == tag)
             this.move();
 		else
-            this.error("syntax error");
+            this.error(this.token.toString());
 	}
 
     void error(String s){
-        throw new Error("near line " + this.lex.line + ": " + s);
+        System.out.println("Erro!!!");
+        System.out.println(" -- linha " + this.lex.line);
+        System.out.println(" -- token inválido: " + s);
+        throw new Error();
     }
 
 	//program ::= init [decl-list] stmt-list stop 
 	public void program()  throws IOException {
-        if(this.token.tag == Tag.INIT) {
-            this.eat(Tag.INIT);
-            this.declList();
-            this.stmtList();
-            this.eat(Tag.STOP);
-        }
-        else {
-            this.error("syntax error");
-        }
+        this.eat(Tag.INIT);
+        this.declList();
+        this.stmtList();
+        this.eat(Tag.STOP);
 	}
 
 	//decl-list ::= decl “;” decl-list1

@@ -8,6 +8,7 @@ public class Lexer {
    public static int line = 1;
    private char ch = ' ';
    private FileReader file;
+   private int EOF = 65535;
    
    private Hashtable words = new Hashtable();
 
@@ -41,14 +42,16 @@ public class Lexer {
       reserve(new Word("and",     Tag.AND));
    }
 
-   private void readch() throws IOException {
-      ch = (char)file.read();
-
-      if (ch == 65535)
-         throw new IOException();
+   private void readch() {
+      if (ch != EOF)
+         try {
+            ch = (char)file.read();
+         } catch (IOException e) {
+            // da nada não
+         }
    }
    
-   private boolean readch(char c) throws IOException {
+   private boolean readch(char c) {
       readch();
       
       if (ch != c)
@@ -58,7 +61,7 @@ public class Lexer {
       return true;
    }
 
-   public Token scan() throws IOException {
+   public Token scan() {
       for ( ; ; readch() ) {
          if (ch == ' ' || ch == '\t')
             continue;

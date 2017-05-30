@@ -30,5 +30,7 @@ public class Tag {
 
         NUM     = 277,
         ID      = 278,
-        LITERAL = 279;
+        LITERAL = 279,
+
+        EOF     = 65535;
 }

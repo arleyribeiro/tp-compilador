@@ -46,5 +46,6 @@ public class LexerHelper {
 		table.put(Tag.NUM, "NUM");
 		table.put(Tag.ID, "ID");
 		table.put(Tag.LITERAL, "LITERAL");
+		table.put(Tag.EOF, "EOF");
 	}
 }
