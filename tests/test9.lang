@@ -1,0 +1,7 @@
+init
+	a, b, c, maior is integer;
+
+	read(a);
+	
+
+stop

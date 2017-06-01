@@ -1,35 +1,25 @@
 ```
 program         -> init [decl-list] stmt-list stop
 
-decl-list       -> decl ; decl-list-ext
-decl-list-ext   -> LAMBDA
-                 | decl ";"
+decl-list       -> decl ; decl-list-ext | LAMBDA
+decl-list-ext   -> LAMBDA | decl ";" decl-list-ext 
 
 decl            -> ident-list is type
 
 ident-list      -> identifier ident-list-ext
-ident-list-ext  -> LAMBDA
-                 | , identifier
+ident-list-ext  -> LAMBDA | , identifier ident-list-ext
 
-type            -> integer
-                 | string
+type            -> integer | string
 
-stmt-list       -> stmt ; stmt-ext
-stmt-list-ext   -> LAMBDA
-                 | stmt ;
+stmt-list       -> stmt ; stmt-list-ext 
+stmt-list-ext   -> LAMBDA | stmt ;
 
-stmt            -> assign-stmt 
-                 | if-stmt 
-                 | do-stmt 
-                 | read-stmt 
-                 | write-stmt
-
+stmt            -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
 
 assign-stmt     -> identifier := simple_expr
 
 if-stmt         -> if ( condition ) begin stmt-list end if-stmt-ext
-if-stmt-ext     -> LAMBDA
-                 | else begin stmt-list end
+if-stmt-ext     -> LAMBDA | else begin stmt-list end
 
 condition       -> expression
 do-stmt         -> do stmt-list do-suffix
@@ -39,48 +29,29 @@ write-stmt      -> write ( writable )
 writable        -> simple-expr
 
 expression      -> simple-expr expression-ext
-expression-ext  -> LAMBDA
-                 | relop simple-expr
+expression-ext  -> LAMBDA | relop simple-expr
 
 simple-expr     -> term simple-expr-ext
-simple-expr-ext -> LAMBDA
-                 | addop term simple-expr-ext
+simple-expr-ext -> LAMBDA | addop term simple-expr-ext
 
 term            -> factor-a term-ext
-term-ext        -> mulop factor-a term-ext
-                 | lambda
+term-ext        -> mulop factor-a term-ext | lambda
+factor-a        -> factor | not factor | - factor
 
-factor-a        -> factor 
-                 | not factor 
-                 | - factor
+factor          -> identifier | constant | ( expression )
 
-factor          -> identifier 
-                 | constant 
-                 | ( expression )
+relop           -> = | > | >= | < | <= | <>
 
-relop           -> = 
-                 | > 
-                 | >= 
-                 | < 
-                 | <= 
-                 | <>
+addop           -> + | - | or
 
-addop           -> + 
-                 | - 
-                 | or
+mulop           -> * | / | and
 
-mulop           -> * 
-                 | / 
-                 | and
-
-constant        -> integer_const 
-                 | literal
+constant        -> integer_const | literal
 
 integer_const   -> nozero
-integer_const   -> nozero digit
-                 | 0
+integer_const   -> nozero digit | 0
 
-literal         -> " “ " {caractere} " ” "
+literal         ->  “  {caractere}  ” 
 identifier      -> (letter) {letter   | digit   | " _ " }
 letter          -> [A-Za-z]
 digit           -> [0-9]

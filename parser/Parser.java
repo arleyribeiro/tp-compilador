@@ -54,6 +54,7 @@ public class Parser {
 				error("syntax error");
 		}
 	}
+
 	//decl-list1 ::= decl ;  decl-list1 | lambda
 	private void declList1() throws IOException {
 		if (token.tag == Tag.ID) {
