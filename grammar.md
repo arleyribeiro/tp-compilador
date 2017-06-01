@@ -1,63 +1,49 @@
 ```
-program         -> init [decl-list] stmt-list stop
+program        -> init decl-list stmt-list stop
 
-decl-list       -> decl ; decl-list-ext | LAMBDA
-decl-list-ext   -> LAMBDA | decl ";" decl-list-ext 
+decl-list      -> LAMBDA | decl ; decl-list
 
-decl            -> ident-list is type
+decl           -> ident-list is type
 
-ident-list      -> identifier ident-list-ext
-ident-list-ext  -> LAMBDA | , identifier ident-list-ext
+type           -> integer | string
 
-type            -> integer | string
+ident-list     -> identifier ident-list-ext
+ident-list-ext -> LAMBDA | , identifier ident-list-ext
 
-stmt-list       -> stmt ; stmt-list-ext 
-stmt-list-ext   -> LAMBDA | stmt ;
+stmt-list      -> stmt ; stmt-list-ext 
+stmt-list-ext  -> LAMBDA | stmt ; stmt-list-ext
 
-stmt            -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
+stmt           -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
 
-assign-stmt     -> identifier := simple_expr
+assign-stmt    -> identifier := simple_expr
 
-if-stmt         -> if ( condition ) begin stmt-list end if-stmt-ext
-if-stmt-ext     -> LAMBDA | else begin stmt-list end
+if-stmt        -> if ( condition ) begin stmt-list end if-stmt-ext
+if-stmt-ext    -> LAMBDA | else begin stmt-list end
 
-condition       -> expression
-do-stmt         -> do stmt-list do-suffix
-do-suffix       -> while ( condition )
-read-stmt       -> read ( identifier )
-write-stmt      -> write ( writable )
-writable        -> simple-expr
+condition      -> expression
+do-stmt        -> do stmt-list do-suffix
+do-suffix      -> while ( condition )
+read-stmt      -> read ( identifier )
+write-stmt     -> write ( writable )
+writable       -> simple-expr
 
-expression      -> simple-expr expression-ext
-expression-ext  -> LAMBDA | relop simple-expr
+expression     -> simple-expr expression-ext
+expression-ext -> LAMBDA | relop simple-expr
 
-simple-expr     -> term simple-expr-ext
-simple-expr-ext -> LAMBDA | addop term simple-expr-ext
+simple-expr    -> term simple-expr-ext
+simple-expr-ext-> LAMBDA | addop term simple-expr-ext
 
-term            -> factor-a term-ext
-term-ext        -> mulop factor-a term-ext | lambda
-factor-a        -> factor | not factor | - factor
+term           -> factor-a term-ext
+term-ext       -> mulop factor-a term-ext | lambda
 
-factor          -> identifier | constant | ( expression )
+factor-a       -> factor | not factor | - factor
+factor         -> identifier | constant | ( expression )
 
-relop           -> = | > | >= | < | <= | <>
+relop          -> = | > | >= | < | <= | <>
+addop          -> + | - | or
+mulop          -> * | / | and
 
-addop           -> + | - | or
-
-mulop           -> * | / | and
-
-constant        -> integer_const | literal
-
-integer_const   -> nozero
-integer_const   -> nozero digit | 0
-
-literal         ->  “  {caractere}  ” 
-identifier      -> (letter) {letter   | digit   | " _ " }
-letter          -> [A-Za-z]
-digit           -> [0-9]
-nozero          -> [1-9]
-caractere       -> um dos 256 caracteres do conjunto ASCII, exceto “ " ”
-e quebra de linha
+constant       -> num | literal
 ```
 
 simple-expr1 e term = recursão a esquerda

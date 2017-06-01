@@ -6,24 +6,24 @@ import symbols.*;
 
 public class Parser {
 
-	private Lexer lex; //lexical analyzer for this parser
-	private Token token; //tokenahead
-	int used = 0;
+	private Lexer lex;
+	private Token token;
 
-	public Parser(Lexer lex) throws IOException {
-		this.lex = lex;
-		this.move();
+
+	public Parser(Lexer lexer) throws IOException {
+		lex = lexer;
+		move();
 	}
 
 	void move() throws IOException {
-		this.token = this.lex.scan();
+		token = lex.scan();
 	}
 
 	void eat(int tag) throws IOException {
-		if(this.token.tag == tag)
-            this.move();
+		if (token.tag == tag)
+            move();
 		else
-            this.error(this.token.toString());
+            error(token.toString());
 	}
 
     void error(String s){
