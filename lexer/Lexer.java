@@ -103,7 +103,8 @@ public class Lexer {
          case '|':
             return readch('|') ? Word.or : new Token('|');
          case '=':
-            return readch('=') ? Word.eq : new Token('=');
+            ch = ' ';
+            return  Word.eq;
          case '>':
             return readch('>') ? Word.ge : new Token('>');
          case '<':
