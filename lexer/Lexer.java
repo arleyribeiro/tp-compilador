@@ -87,8 +87,6 @@ public class Lexer {
       //block comment
       if (ch == '{'){
          while (ch != '}') {
-            if(ch == EOF)
-               break;
             readch();
             if (ch == '\n')
                line = line + 1;

@@ -280,7 +280,7 @@ public class Parser {
                 break;
             case Tag.NOT:
                 eat(Tag.NOT);
-                factorA();
+                factor();
                 break;
             case '(':
             case Tag.ID: 
