@@ -17,12 +17,11 @@ stmt           -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
 
 assign-stmt    -> identifier := simple_expr
 
-if-stmt        -> if ( condition ) begin stmt-list end if-stmt-ext
+if-stmt        -> if ( expression ) begin stmt-list end if-stmt-ext
 if-stmt-ext    -> LAMBDA | else begin stmt-list end
 
-condition      -> expression
 do-stmt        -> do stmt-list do-suffix
-do-suffix      -> while ( condition )
+do-suffix      -> while ( expression )
 read-stmt      -> read ( identifier )
 write-stmt     -> write ( writable )
 writable       -> simple-expr
@@ -34,7 +33,7 @@ simple-expr    -> term simple-expr-ext
 simple-expr-ext-> LAMBDA | addop term simple-expr-ext
 
 term           -> factor-a term-ext
-term-ext       -> mulop factor-a term-ext | lambda
+term-ext       -> LAMBDA | mulop factor-a term-ext
 
 factor-a       -> factor | not factor | - factor
 factor         -> identifier | constant | ( expression )

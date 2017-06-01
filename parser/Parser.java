@@ -33,118 +33,95 @@ public class Parser {
         throw new Error();
     }
 
-	//program ::= init [decl-list] stmt-list stop 
+	//program        -> init decl-list stmt-list stop
 	public void program()  throws IOException {
-        this.eat(Tag.INIT);
-        this.declList();
-        this.stmtList();
-        this.eat(Tag.STOP);
+        eat(Tag.INIT);
+        declList();
+        stmtList();
+        eat(Tag.STOP);
 	}
 
-	//decl-list ::= decl “;” decl-list1
+	//decl-list      -> LAMBDA | decl ; decl-list
 	private void declList() throws IOException {
-		switch(token.tag) {
-			case Tag.ID:
-				this.decl();
-				this.eat(';');
-				this.declList1();
-				break;
-
-			default:
-				error("syntax error");
-		}
+        if (token.tag == Tag.ID) {
+            decl();
+            eat(';');
+            declList();
+        }
 	}
 
-	//decl-list1 ::= decl ;  decl-list1 | lambda
-	private void declList1() throws IOException {
-		if (token.tag == Tag.ID) {
-			decl();
-			eat(';');
-			declList1();
-		}
-	}
-
-	//decl ::= ident-list is type
+	//decl           -> ident-list is type
 	private void decl() throws IOException {
-		switch (token.tag) {
-			case Tag.ID:
-			identList();
-			eat(Tag.IS);
-			type();
-			break;
-
-			default:
-				error("syntax error");
-		}
+        identList();
+        eat(Tag.IS);
+		type();
 	}
+
+    //type           -> integer | string
+    private void type()  throws IOException {
+        switch (token.tag) {
+            case Tag.INTEGER:
+                eat(Tag.INTEGER);
+                break;
+
+            case Tag.STRING:
+                eat(Tag.STRING);
+                break;
+
+            default:
+                error(token.toString());
+        }
+    }
 	
-	//ident-list ::= identifier ident-list1
+	//ident-list     -> identifier ident-list-ext
 	private void identList() throws IOException {
-		switch(token.tag) {
-			
-			case Tag.ID:
-				identifier();
-				identList1();
-				break;
-
-			default:
-				error("syntax error");
-		}
+        eat(Tag.ID);
+        identListExt();
 	}
 
-	//ident-list1 ::= “,” identifier ident-list1 | lambda
-	private void identList1() throws IOException {
+	//ident-list-ext -> LAMBDA | , identifier ident-list-ext
+	private void identListExt() throws IOException {
 		if(token.tag == ',') {
 			eat(',');
-			identifier();
-			identList1();
+			eat(Tag.ID);
+			identListExt();
 		}
 	}
 
-	//type ::= integer | string
-	private void type()  throws IOException {
-		switch (token.tag) {
-			case Tag.INTEGER:
-				eat(Tag.INTEGER);
-				break;
-
-			case Tag.STRING:
-				eat(Tag.STRING);
-				break;
-
-			default:
-				error("syntax error");
-		}		
-	}
-
-	//stmt-list ::= stmt “;” stmt-list1
+	//stmt-list      -> stmt ; stmt-list-ext
 	private void stmtList() throws IOException {
 		switch (token.tag) {
 			case Tag.ID:
-			case Tag.IF:
 			case Tag.DO:
-			case Tag.READ:
-			case Tag.WRITE:
+            case Tag.IF:
+            case Tag.READ:
+            case Tag.WRITE:
 				stmt();
 				eat(';');
-				stmtList1();
+				stmtListExt();
 				break;
 
 			default:
-				error("syntax error");
+				error(token.toString());
 		}
 	}
 
-	//stmt-list1 :: stmt “;” stmt-list1 | lambda
-	private void stmtList1() throws IOException {
-		if (Tag.ID == token.tag || Tag.IF == token.tag || Tag.DO == token.tag || Tag.READ == token.tag || Tag.WRITE == token.tag){
-			stmt();
-			eat(';');
-			stmtList1();
-		}
+	//stmt-list-ext  -> LAMBDA | stmt ; stmt-list-ext
+	private void stmtListExt() throws IOException {
+        switch (token.tag) {
+            case Tag.ID:
+            case Tag.DO:
+            case Tag.IF:
+            case Tag.READ:
+            case Tag.WRITE:
+                stmt();
+                eat(';');
+                stmtListExt();
+                break;
+        }
 	}
 
-	//stmt ::= assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
+    //stmt           -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
 	private void stmt() throws IOException {
 		switch (token.tag) {
 			case Tag.ID:
@@ -163,318 +140,176 @@ public class Parser {
                 writeStmt();
                 break;
             default:
-                error("syntax error");
+                error(token.toString());
 		}
 	}
 
-	//assign-stmt ::= identifier “:=” simple_expr
+	//assign-stmt    -> identifier := simple_expr
 	private void assignStmt() throws IOException {
-
-        switch (token.tag) {
-
-            case Tag.ID:
-                identifier();
-                eat(Tag.ASSIGN);
-                simpleExpr();
-                break;
-
-            default:
-                error("syntax error");
-        }
+        eat(Tag.ID);
+        eat(Tag.ASSIGN);
+        simpleExpr();
     }
 
-    //if-stmt ::= if “(” condition “)” begin stmt-list end else1
+    //if-stmt        -> if ( expression ) begin stmt-list end if-stmt-ext
     private void ifStmt() throws IOException {
-
-        switch (token.tag) {
-
-            case Tag.IF:
-                eat(Tag.IF);
-                eat('(');
-                expression();
-                eat(')');
-                eat(Tag.BEGIN);
-                stmtList();
-                eat(Tag.END);
-                elseStmt();
-                break;
-
-            default:
-                error("syntax error");
-        }
+        eat(Tag.IF);
+        eat('(');
+        expression();
+        eat(')');
+        eat(Tag.BEGIN);
+        stmtList();
+        eat(Tag.END);
+        ifStmtExt();
     }
 
-	//else1 ::= END | ELSE stmt-list END
-    private void elseStmt() throws IOException {
-
+    //if-stmt-ext    -> LAMBDA | else begin stmt-list end
+    private void ifStmtExt() throws IOException {
         switch (token.tag) {
-
-            case Tag.END:
-                eat(Tag.END);
-                break;
-
             case Tag.ELSE:
-                eat(Tag.ELSE);                
-                eat('(');
-                expression();
-                eat(')');
+                eat(Tag.ELSE);
                 eat(Tag.BEGIN);
                 stmtList();
                 eat(Tag.END);
                 break;
-
-            default:
-                error("syntax error");
         }
     }
 
-    //condition ::= expression
-    private void condition() throws IOException {
-    	switch(token.tag) {
-    		case Tag.ID:
-    		case Tag.NUM:
-    		case Tag.LITERAL:
-    			expression();
-    			break;
-    	}
-    }
-
-    //do-stmt ::= do stmt-list do-suffix
+    //do-stmt        -> do stmt-list do-suffix
     private void doStmt() throws IOException {
-
-        switch (token.tag) {
-
-            case Tag.DO:
-                eat(Tag.DO);
-                stmtList();
-                doSuffix();
-                break;
-
-            default:
-                error("syntax error");
-        }
+        eat(Tag.DO);
+        stmtList();
+        doSuffix();
     }
 
-    //do-suffix ::= while “(“ condition “)”
+    //do-suffix      -> while ( expression )
     private void doSuffix() throws IOException {
-
-        if(token.tag == Tag.WHILE) {
-        	eat('(');
-        	condition();
-        	eat(')');
-        }
+        eat(Tag.WHILE);
+    	eat('(');
+    	expression();
+    	eat(')');
     }
 
-    //read-stmt :: read “(” identifier “)”
+    //read-stmt      -> read ( identifier )
     private void readStmt() throws IOException {
-
-        switch (token.tag) {
-            case Tag.READ:
-                eat(Tag.READ);
-                eat('(');
-                identifier();
-                eat(')');
-                break;
-
-            default:
-                error("syntax error");
-        }
+        eat(Tag.READ);
+        eat('(');
+        eat(Tag.ID);
+        eat(')');
     }
 
-    //write-stmt ::= write “( “ writable “)”
+    //write-stmt     -> write ( writable )
 	private void writeStmt() throws IOException {
-
-        switch (token.tag) {
-            case Tag.WRITE:
-                eat(Tag.WRITE);
-                eat('(');
-                writable();
-                eat(')');
-                break;
-
-            default:
-                error("syntax error");
-        }
+        eat(Tag.WRITE);
+        eat('(');
+        writable();
+        eat(')');
 	}
 
-	//writable ::= simple-expr
+	//writable       -> simple-expr
 	private void writable() throws IOException {
-
-        switch (token.tag) {
-            case Tag.ID:
-            case Tag.NUM:
-            case Tag.LITERAL:
-            case Tag.NOT:
-            case '(':
-            case '0':
-            case '-':
-            case '"':
-                simpleExpr();
-                break;
-
-            default:
-                error("syntax error");
-        }
+        simpleExpr();
     }
 
-    //expression ::= simple-expr expression1
+    //expression     -> simple-expr expression-ext
 	private void expression() throws IOException {
+        simpleExpr();
+        expressionExt();
+    }
 
+    //expression-ext -> LAMBDA | relop simple-expr
+     private void expressionExt() throws IOException {
         switch (token.tag) {
-
-            case Tag.ID:
-            case Tag.NUM:
-            case Tag.LITERAL:       
-            case '"':
+            case '=': 
+            case '<': 
+            case '>': 
+            case Tag.NE:
+            case Tag.LE:
+            case Tag.GE:
+                relop();
                 simpleExpr();
-                expression1();
-                break;
-
-            default:
-                error("syntax error");
         }
     }
 
-    //expression1 :: relop expression1 | lambda
-     private void expression1() throws IOException {
-
-        if (token.tag == Tag.EQ || 
-        	token.tag == Tag.LE || 
-        	token.tag == Tag.GE || 
-        	token.tag == Tag.LE || 
-        	token.tag == '>' || 
-        	token.tag == '<') {
-            relop();
-            expression();
-        }
-    }
-
-    //simple-expr :== term simple-expr1
+    //simple-expr    -> term simple-expr-ext
     private void simpleExpr() throws IOException {
+        term();
+        simpleExprExt();
+    }
 
+    //simple-expr-ext-> LAMBDA | addop term simple-expr-ext
+    private void simpleExprExt() throws IOException {
         switch (token.tag) {
-            case Tag.ID:
-            case Tag.NUM:
-            case Tag.LITERAL:
-            case Tag.NOT:
-            case '(':
-            case '0':
-            case '-':
-            case '"':
+            case '+': 
+            case '-': 
+            case Tag.OR:
+                addop();
                 term();
-                simpleExpr1();
-                break;
-
-            default:
-                error("syntax error");
+                simpleExprExt();
         }
     }
 
-    //simple-expr1 ::= addop term simple-expr1 | LAMBDA
-    private void simpleExpr1() throws IOException {
-
-        if (token.tag == Tag.OR ||
-         	token.tag == '+' || 
-         	token.tag == '-') {
-
-            addop();
-            term();
-            simpleExpr1();
-        }
-    }
-
-    //term ::= factor-a term1
+    //term           -> factor-a term-ext
     private void term() throws IOException {
+        factorA();
+        termExt();
+    }
 
+    //term-ext       -> mulop factor-a term-ext | lambda
+    private void termExt() throws IOException {
         switch (token.tag) {
-
-            case Tag.ID:
-            case Tag.NUM:
-            case Tag.LITERAL:
-            case Tag.NOT:
-            case '(':
-            case '0':
-            case '-':
-            case '"':
+            case '*': 
+            case '/': 
+            case Tag.AND:
+                mulop();
                 factorA();
-                term1();
-                break;
-
-            default:
-                error("syntax error");
+                termExt();
         }
     }
 
-    //term1 ::= mulop factor-a term1 | lambda
-    private void term1() throws IOException {
-        if (token.tag == Tag.AND || 
-        	token.tag == '*' || 
-        	token.tag == '/') {
-
-            mulop();
-            factorA();
-            term1();
-        }
-    }
-
-	//factor-a ::= factor | not factor | - factor
+    //factor-a       -> factor | not factor | - factor
     private void factorA() throws IOException {
-
         switch (token.tag) {
-
-            case Tag.ID:
-            case Tag.NUM:
-            case Tag.LITERAL:
-            case '(':
-                factor();
-                break;
-
-            case Tag.NOT:
-                eat(Tag.NOT);
-                factor();
-                break;
-
-            case '-':
+            case '-': 
                 eat('-');
                 factor();
                 break;
-
+            case Tag.NOT:
+                eat(Tag.NOT);
+                factorA();
+                break;
+            case '(':
+            case Tag.ID: 
+            case Tag.NUM:
+            case Tag.LITERAL:
+            factor();
             default:
-                error("syntax error");
+                error(token.toString());
         }
     }
 
-	//factor ::= identifier | constant | “(” expression “)”
+	//factor         -> identifier | constant | ( expression )
     private void factor() throws IOException {
-
         switch (token.tag) {
-
-            case Tag.ID:
-                identifier();
+            case Tag.ID: 
+                eat(Tag.ID);
                 break;
-
             case Tag.NUM:
             case Tag.LITERAL:
-            case '"':
                 constant();
                 break;
-
             case '(':
                 eat('(');
                 expression();
                 eat(')');
-                break;
-
             default:
-                error("syntax error");
+                error(token.toString());
         }
     }
 
-	//relop ::= “=” | ”>” | ”>=” | ”<” | ”<=” | ”<>”
+	//relop          -> = | > | >= | < | <= | <>
     private void relop() throws IOException {
-
         switch (token.tag) {
-
             case Tag.EQ:
                 eat(Tag.EQ);
                 break;
@@ -500,15 +335,13 @@ public class Parser {
                 break;
 
             default:
-                error("syntax error");
+                error(token.toString());
         }
     }
 
-    //addop ::= “+” | ”-” | or
+    //addop          -> + | - | or
      private void addop() throws IOException {
-
         switch (token.tag) {
-
             case '+':
                 eat('+');
                 break;
@@ -522,15 +355,13 @@ public class Parser {
                 break;
 
             default:
-                error("syntax error");
+                error(token.toString());
         }
     }
 
-    //mulop ::= “*” | “/” | and
+    //mulop          -> * | / | and
     private void mulop() throws IOException {
-
         switch (token.tag) {
-
             case '*':
                 eat('*');
                 break;
@@ -544,86 +375,22 @@ public class Parser {
                 break;
 
             default:
-                error("syntax error");
+                error(token.toString());
         }
     }
 
-    //constant ::= integer_const | literal
+    //constant       -> num | literal
     private void constant() throws IOException {
-
         switch (token.tag) {
-
-            case Tag.NUM:
-            case '0':
-                integerConst();
-                break;
-
-            case Tag.LITERAL:
-
-                eat(Tag.LITERAL);
-                break;
-
-            default:
-                error("syntax error");
-        }
-    }
-
-    //integer_const ::= nozero{digit} | “0”
-    private void integerConst() throws IOException {
-
-        switch (token.tag) {
-
             case Tag.NUM:
                 eat(Tag.NUM);
                 break;
-
-            case '0':
-                eat('0');
-                break;
-
-            default:
-                error("syntax error");
-        }
-    }
-
-    //literal ::= “ ” ” {caractere} “ ” ”
-    private void literal() throws IOException {
-
-        switch (token.tag) {
-
             case Tag.LITERAL:
                 eat(Tag.LITERAL);
                 break;
 
             default:
-                error("syntax error");
+                error(token.toString());
         }
     }
-
-    //identifier ::=(letter){letter | digit | “ _ “ }
-    private void identifier() throws IOException {
-	    switch (token.tag) {
-
-            case Tag.ID:
-                eat(Tag.ID);
-                break;
-
-            default:
-            	error("syntax error");
-        }
-    }
-
-    //letter ::= [A-Za-z]
-    private void letter() throws IOException {
-	    switch (token.tag) {
-
-            case Tag.LITERAL:
-                eat(Tag.LITERAL);
-                break;
-
-            default:
-            	error("syntax error");
-        }
-    }
-
 }
