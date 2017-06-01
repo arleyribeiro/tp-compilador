@@ -3,12 +3,13 @@ package parser;
 import java.io.*;
 import lexer.*;
 import symbols.*;
+import main.*;
 
 public class Parser {
 
 	private Lexer lex;
 	private Token token;
-
+    private LexerHelper lexer = new LexerHelper();
 
 	public Parser(Lexer lexer) throws IOException {
 		lex = lexer;
@@ -17,6 +18,7 @@ public class Parser {
 
 	void move() throws IOException {
 		token = lex.scan();
+        lexer.print(token);
 	}
 
 	void eat(int tag) throws IOException {
@@ -264,6 +266,7 @@ public class Parser {
                 mulop();
                 factorA();
                 termExt();
+                break;
         }
     }
 
@@ -282,7 +285,8 @@ public class Parser {
             case Tag.ID: 
             case Tag.NUM:
             case Tag.LITERAL:
-            factor();
+                factor();
+                break;
             default:
                 error(token.toString());
         }
@@ -302,6 +306,7 @@ public class Parser {
                 eat('(');
                 expression();
                 eat(')');
+                break;
             default:
                 error(token.toString());
         }

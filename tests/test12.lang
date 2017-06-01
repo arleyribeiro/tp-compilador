@@ -1,0 +1,4 @@
+init
+	read(a);
+	result := (a * c)/a;
+stop

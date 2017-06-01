@@ -1,0 +1,11 @@
+//Passa no teste
+init
+	a, b, c, result is integer;
+
+	read (a);
+	read (c);
+	b := 10;
+	result := (a * c);
+	write(result);
+
+stop

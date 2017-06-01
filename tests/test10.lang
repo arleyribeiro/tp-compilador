@@ -1,0 +1,6 @@
+init
+
+	read(a);
+	a<b;
+
+stop
