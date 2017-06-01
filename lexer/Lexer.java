@@ -98,10 +98,6 @@ public class Lexer {
       switch(ch) {
          case ':':
             return readch('=') ? Word.assign : new Token(':');
-         case '&':
-            return readch('&') ? Word.and : new Token('&');
-         case '|':
-            return readch('|') ? Word.or : new Token('|');
          case '=':
             ch = ' ';
             return  Word.eq;

@@ -1,6 +1,6 @@
 init
 	read(a);
-	if(a = b) begin
+	if(a == b) begin
 		read(a);
 	end;
 stop
