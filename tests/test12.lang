@@ -1,4 +1,7 @@
 init
 	read(a);
-	result := (a * c)/a;
+	if(a == b) begin
+		read(a);
+	end;
 stop
+

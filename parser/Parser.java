@@ -222,9 +222,10 @@ public class Parser {
     //expression-ext -> LAMBDA | relop simple-expr
      private void expressionExt() throws IOException {
         switch (token.tag) {
-            case '=': 
+          //  case '=': 
             case '<': 
             case '>': 
+            case Tag.EQ:
             case Tag.NE:
             case Tag.LE:
             case Tag.GE:
