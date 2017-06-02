@@ -18,3 +18,5 @@ begin
 	write (soma / qtd);
 
 stop
+
+

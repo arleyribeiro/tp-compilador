@@ -90,6 +90,8 @@ public class Lexer {
             readch();
             if (ch == '\n')
                line = line + 1;
+            if (ch ==EOF)
+               break;
          }
 
          return scan();
@@ -102,12 +104,17 @@ public class Lexer {
             ch = ' ';
             return  Word.eq;
          case '>':
-            return readch('>') ? Word.ge : new Token('>');
+            return readch('=') ? Word.ge : new Token('>');
          case '<':
-            if (readch('='))
+            readch();
+            if (ch == '=') {
+               ch = ' ';
                return Word.le;
-            if (readch('>'))
+            }
+            if (ch == '>') {
+               ch = ' ';
                return Word.ne;
+            }
             return new Token('<');
       }
 
