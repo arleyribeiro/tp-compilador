@@ -221,6 +221,7 @@ public class Parser {
     }
 
     //expression-ext -> LAMBDA | relop simple-expr
+    //expression-ext -> LAMBDA | relop expression
      private void expressionExt() throws IOException {
         switch (token.tag) {
           //  case '=': 
@@ -231,7 +232,7 @@ public class Parser {
             case Tag.LE:
             case Tag.GE:
                 relop();
-                simpleExpr();
+                expression();
         }
     }
 
