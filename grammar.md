@@ -27,7 +27,7 @@ write-stmt     -> write ( writable )
 writable       -> simple-expr
 
 expression     -> simple-expr expression-ext
-expression-ext -> LAMBDA | relop simple-expr
+expression-ext -> LAMBDA | relop expression
 
 simple-expr    -> term simple-expr-ext
 simple-expr-ext-> LAMBDA | addop term simple-expr-ext
