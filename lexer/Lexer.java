@@ -138,7 +138,7 @@ public class Lexer {
          } while(Character.isLetterOrDigit(ch));
 
          String s = b.toString();
-         Word w = (Word)words.get(s);
+         Word w = (Word)words.get(s.toLowerCase());
 
          if (w != null)
             return w;
@@ -159,7 +159,7 @@ public class Lexer {
          readch();
 
          String s = b.toString();
-         Word w = (Word)words.get(s);
+         Word w = (Word)words.get(s.toLowerCase());
 
          if (w != null)
             return w;
