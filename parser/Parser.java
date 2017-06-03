@@ -41,6 +41,7 @@ public class Parser {
         declList();
         stmtList();
         eat(Tag.STOP);
+        System.out.println("Programa correto!\n");
 	}
 
 	//decl-list      -> LAMBDA | decl ; decl-list
