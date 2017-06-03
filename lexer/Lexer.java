@@ -135,7 +135,7 @@ public class Lexer {
          do {
             b.append(ch);
             readch();
-         } while(Character.isLetterOrDigit(ch));
+         } while(Character.isLetterOrDigit(ch) || ch == '_');
 
          String s = b.toString();
          Word w = (Word)words.get(s.toLowerCase());
