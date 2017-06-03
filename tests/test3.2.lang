@@ -4,7 +4,7 @@ init
 	cont_ is integer;
 	media, idade, soma_ is integer;
 
-	cont_ = 5;
+	cont_ := 5;
 	soma = 0;
 
 	do
