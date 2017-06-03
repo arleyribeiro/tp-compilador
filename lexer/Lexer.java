@@ -93,7 +93,7 @@ public class Lexer {
             if (ch ==EOF)
                break;
          }
-
+         ch = ' ';
          return scan();
       }
 
