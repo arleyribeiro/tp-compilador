@@ -4,26 +4,29 @@ import java.util.*;
 import lexer.*;
 
 
-public class Env {
+public class SymbolsTable {
 
-	private Hashtable table;
-	protected Env prev;
+	private static SymbolsTable table;
+	private HashMap<String, Token> hashMap;
 
-	public Env(Env n) {
-		table = new Hashtable();
-		prev = n;
+	public SymbolsTable() {
+		hashMap = new HashMap<String, Token>();
 	}
 
-	public void put(Token w, Id i) {
-		table.put(w, i);
-	}
-
-	public Id get(Token w) {
-		for(Env e = this; e != null; e = e.prev) {
-			Id found = (Id)(e.table.get(w));
-			if( found != null )
-				return found;
+	public static SymbolsTable getSymbolsTable() {
+		if (table == null) {
+			table = new SymbolsTable();
+			return table;
 		}
-		return null;
+		return table;
+	}
+
+	public void put(Token token) {
+		hashMap.put(token.lexeme, token);
+	}
+
+	public token get(String lexeme) {
+		Token token = hashMap.get(lexeme);
+		return token;
 	}
 }

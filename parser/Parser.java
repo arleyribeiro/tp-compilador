@@ -46,11 +46,9 @@ public class Parser {
 
 	//decl-list      -> LAMBDA | decl ; decl-list
 	private void declList() throws IOException {
-        if (token.tag == Tag.ID) {
-            decl();
-            eat(';');
-            declList();
-        }
+        decl();
+        eat(';');
+        declList();
 	}
 
 	//decl           -> ident-list is type

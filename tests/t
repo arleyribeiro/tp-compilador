@@ -1,11 +1,8 @@
 { Programa de Teste
 Calculo de idade}
 init
-	cont_ is integer;
-	media, idade, soma_ is integer;
-
-	cont_ := 5;
-	soma := 0;
+	cont_ = 5;
+	soma = 0;
 
 	do
 		write(“Altura:” );

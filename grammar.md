@@ -1,7 +1,7 @@
 ```
 program        -> init decl-list stmt-list stop
 
-decl-list      -> LAMBDA | decl ; decl-list
+decl-list      -> decl ; decl-list
 
 decl           -> ident-list is type
 
