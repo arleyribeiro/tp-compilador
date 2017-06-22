@@ -10,7 +10,7 @@ public class Lexer {
    private FileReader file;
    private int EOF = 65535;
    
-   private Hashtable words = new Hashtable();
+   private SymbolsTable words = SymbolsTable.getSymbolsTable();
 
    void reserve(Word w) {
       words.put(w.lexeme, w);
@@ -42,6 +42,7 @@ public class Lexer {
       reserve(new Word("and",     Tag.AND));
    }
 
+   
    private void readch() {
       if (ch != EOF)
          try {

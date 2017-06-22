@@ -3,14 +3,13 @@ package symbols;
 import java.util.*;
 import lexer.*;
 
-
-public class SymbolsTable {
+public class SymbolsTable{
 
 	private static SymbolsTable table;
-	private HashMap<String, Token> hashMap;
+	private HashMap<String, Word> hashMap;
 
 	public SymbolsTable() {
-		hashMap = new HashMap<String, Token>();
+		hashMap = new HashMap<String, Word>();
 	}
 
 	public static SymbolsTable getSymbolsTable() {
@@ -20,13 +19,13 @@ public class SymbolsTable {
 		}
 		return table;
 	}
-
-	public void put(Token token) {
+	//(String s, int tag)
+	public void put(String lexeme, Word token) {
 		hashMap.put(token.lexeme, token);
 	}
 
-	public token get(String lexeme) {
-		Token token = hashMap.get(lexeme);
+	public Word get(String lexeme) {
+		Word token = hashMap.get(lexeme);
 		return token;
 	}
 }

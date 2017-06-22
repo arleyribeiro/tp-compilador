@@ -22,7 +22,7 @@ public class Token {
 		return lexeme;
 	}
 
-	
+
 	public String toString() {
 		return "" + (char)tag;
 	}
