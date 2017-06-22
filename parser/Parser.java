@@ -7,26 +7,26 @@ import main.*;
 
 public class Parser {
 
-	private Lexer lex;
-	private Token token;
+    private Lexer lex;
+    private Token token;
     private LexerHelper lexer = new LexerHelper();
 
-	public Parser(Lexer lexer) throws IOException {
-		lex = lexer;
-		move();
-	}
+    public Parser(Lexer lexer) throws IOException {
+        lex = lexer;
+        move();
+    }
 
-	void move() throws IOException {
-		token = lex.scan();
+    void move() throws IOException {
+        token = lex.scan();
         lexer.print(token);
-	}
+    }
 
-	void eat(int tag) throws IOException {
-		if (token.tag == tag)
+    void eat(int tag) throws IOException {
+        if (token.tag == tag)
             move();
-		else
+        else
             error(token.toString());
-	}
+    }
 
     void error(String s){
         System.out.println("Erro!!!");
@@ -35,28 +35,30 @@ public class Parser {
         throw new Error();
     }
 
-	//program        -> init decl-list stmt-list stop
-	public void program()  throws IOException {
+    //program        -> init decl-list stmt-list stop
+    public void program()  throws IOException {
         eat(Tag.INIT);
         declList();
         stmtList();
         eat(Tag.STOP);
         System.out.println("Programa correto!\n");
-	}
+    }
 
-	//decl-list      -> LAMBDA | decl ; decl-list
-	private void declList() throws IOException {
-        decl();
-        eat(';');
-        declList();
-	}
+    //decl-list      -> LAMBDA | decl ; decl-list
+    private void declList() throws IOException {
+        if (token.tag == Tag.ID) {
+            decl();
+            eat(';');
+            declList();
+        }
+    }
 
-	//decl           -> ident-list is type
-	private void decl() throws IOException {
+    //decl           -> ident-list is type
+    private void decl() throws IOException {
         identList();
         eat(Tag.IS);
-		type();
-	}
+        type();
+    }
 
     //type           -> integer | string
     private void type()  throws IOException {
@@ -73,42 +75,42 @@ public class Parser {
                 error(token.toString());
         }
     }
-	
-	//ident-list     -> identifier ident-list-ext
-	private void identList() throws IOException {
+    
+    //ident-list     -> identifier ident-list-ext
+    private void identList() throws IOException {
         eat(Tag.ID);
         identListExt();
-	}
+    }
 
-	//ident-list-ext -> LAMBDA | , identifier ident-list-ext
-	private void identListExt() throws IOException {
-		if(token.tag == ',') {
-			eat(',');
-			eat(Tag.ID);
-			identListExt();
-		}
-	}
+    //ident-list-ext -> LAMBDA | , identifier ident-list-ext
+    private void identListExt() throws IOException {
+        if(token.tag == ',') {
+            eat(',');
+            eat(Tag.ID);
+            identListExt();
+        }
+    }
 
-	//stmt-list      -> stmt ; stmt-list-ext
-	private void stmtList() throws IOException {
-		switch (token.tag) {
-			case Tag.ID:
-			case Tag.DO:
+    //stmt-list      -> stmt ; stmt-list-ext
+    private void stmtList() throws IOException {
+        switch (token.tag) {
+            case Tag.ID:
+            case Tag.DO:
             case Tag.IF:
             case Tag.READ:
             case Tag.WRITE:
-				stmt();
-				eat(';');
-				stmtListExt();
-				break;
+                stmt();
+                eat(';');
+                stmtListExt();
+                break;
 
-			default:
-				error(token.toString());
-		}
-	}
+            default:
+                error(token.toString());
+        }
+    }
 
-	//stmt-list-ext  -> LAMBDA | stmt ; stmt-list-ext
-	private void stmtListExt() throws IOException {
+    //stmt-list-ext  -> LAMBDA | stmt ; stmt-list-ext
+    private void stmtListExt() throws IOException {
         switch (token.tag) {
             case Tag.ID:
             case Tag.DO:
@@ -120,15 +122,15 @@ public class Parser {
                 stmtListExt();
                 break;
         }
-	}
+    }
 
     //stmt           -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
-	private void stmt() throws IOException {
-		switch (token.tag) {
-			case Tag.ID:
-				assignStmt();
-				break;
-			case Tag.IF:
+    private void stmt() throws IOException {
+        switch (token.tag) {
+            case Tag.ID:
+                assignStmt();
+                break;
+            case Tag.IF:
                 ifStmt();
                 break;
             case Tag.DO:
@@ -142,11 +144,11 @@ public class Parser {
                 break;
             default:
                 error(token.toString());
-		}
-	}
+        }
+    }
 
-	//assign-stmt    -> identifier := simple_expr
-	private void assignStmt() throws IOException {
+    //assign-stmt    -> identifier := simple_expr
+    private void assignStmt() throws IOException {
         eat(Tag.ID);
         eat(Tag.ASSIGN);
         simpleExpr();
@@ -186,9 +188,9 @@ public class Parser {
     //do-suffix      -> while ( expression )
     private void doSuffix() throws IOException {
         eat(Tag.WHILE);
-    	eat('(');
-    	expression();
-    	eat(')');
+        eat('(');
+        expression();
+        eat(')');
     }
 
     //read-stmt      -> read ( identifier )
@@ -200,20 +202,20 @@ public class Parser {
     }
 
     //write-stmt     -> write ( writable )
-	private void writeStmt() throws IOException {
+    private void writeStmt() throws IOException {
         eat(Tag.WRITE);
         eat('(');
         writable();
         eat(')');
-	}
+    }
 
-	//writable       -> simple-expr
-	private void writable() throws IOException {
+    //writable       -> simple-expr
+    private void writable() throws IOException {
         simpleExpr();
     }
 
     //expression     -> simple-expr expression-ext
-	private void expression() throws IOException {
+    private void expression() throws IOException {
         simpleExpr();
         expressionExt();
     }
@@ -293,7 +295,7 @@ public class Parser {
         }
     }
 
-	//factor         -> identifier | constant | ( expression )
+    //factor         -> identifier | constant | ( expression )
     private void factor() throws IOException {
         switch (token.tag) {
             case Tag.ID: 
@@ -313,7 +315,7 @@ public class Parser {
         }
     }
 
-	//relop          -> = | > | >= | < | <= | <>
+    //relop          -> = | > | >= | < | <= | <>
     private void relop() throws IOException {
         switch (token.tag) {
             case Tag.EQ:
