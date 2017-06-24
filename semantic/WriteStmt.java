@@ -52,7 +52,7 @@ public class WriteStmt extends Parser {
                 break;
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando  WRITE encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando  (WRITE) encontrado.");
                 error(token.toString());
         }
 	}

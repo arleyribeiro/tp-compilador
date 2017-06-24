@@ -55,7 +55,7 @@ public class ReadStmt extends Parser {
                 break;
                 
                 default:
-                    System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando de entrada não encontrado.");
+                    System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando de entrada (READ) não foi encontrado.");
                     error(token.toString());
         }
 	}

@@ -45,7 +45,7 @@ public class Type extends Parser {
                 break;
                 
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Tipo nao encontrado");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Tipo (INTEGER/STRING) nao encontrado");
                 error(token.toString());
         }
 	}

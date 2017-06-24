@@ -37,7 +37,7 @@ public class IdentList extends Parser {
                 break;
             
     		default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Lista de identificadores não encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "A Lista de identificadores não foi encontrada.");
                 error(token.toString());
         }
 	}

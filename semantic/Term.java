@@ -34,7 +34,7 @@ public class Term extends Parser {
 		        
 				if (!factorA.type.equals(termExt.type)) {
 		        
-		            System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompaível com tipo do operando.");
+		            System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "O operador e incompativel com o operando.");
 		            error(token.toString());
 		        }
 		    }

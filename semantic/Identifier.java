@@ -39,7 +39,7 @@ public class Identifier extends Parser {
 				} else { 
 					if (!tok.decl) {
 				
-						System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Variavel nao declarada '" + token.lexeme + "'.");
+						System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Variavel nao declarada: '" + token.lexeme + "'.");
             			error(tok.toString());
 					}
 					

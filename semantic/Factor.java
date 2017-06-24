@@ -61,7 +61,7 @@ public class Factor extends Parser {
             break;                                                                                                                                
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Expressão não encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "A expressão não foi encontrada.");
                 error(token.toString());
         }
     }

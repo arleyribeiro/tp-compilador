@@ -55,31 +55,9 @@ public class Mulop extends Parser {
             break;
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n"+ "Operador aritmético esperado, porém nao encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n"+ "Operador aritmético nao foi encontrado.");
                 error(token.toString());
         }
     }
 }
 
-/*
-//mulop          -> * | / | and
-private void mulop() throws IOException {
-    switch (token.tag) {
-        case '*':
-            eat('*');
-            break;
-
-        case '/':
-            eat('/');
-            break;
-
-        case Tag.AND:
-            eat(Tag.AND);
-            break;
-
-        default:
-            error(token.toString());
-    }
-}
-
-*/

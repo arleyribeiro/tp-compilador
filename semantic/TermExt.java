@@ -39,7 +39,7 @@ public class TermExt extends Parser {
                     
                     if (!mulop.type.equals(factorA.type)) {
                     
-                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompatível com tipo do operando.");
+                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "O operador e incompativel com o operando.");
                         error(token.toString());
                     }
                 }
@@ -50,7 +50,7 @@ public class TermExt extends Parser {
                 if (!termExt.type.equals("void")) {
                     
                     if (!mulop.type.equals(termExt.type)) {
-                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompatível com tipo do operando.");
+                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "O operador e incompativel com o operando.");
                         error(token.toString());
                     }
                     

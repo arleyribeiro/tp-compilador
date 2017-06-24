@@ -43,7 +43,7 @@ public class StmtList extends Parser {
                 break;
 
             default:
-                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Comando não encontrado.");
+                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Comando (IF/ASSIGN/DO/READ/WRITE) encontrado.");
                 error(token.toString());
         }
 	}

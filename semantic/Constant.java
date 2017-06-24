@@ -38,7 +38,7 @@ public class Constant extends Parser {
 		        break;
 
 		    default:
-		   		System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Constante númerica nao encontrada.");
+		   		System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "A constante númerica nao foi encontrada.");
 		        error(token.toString());
 		}
 	}

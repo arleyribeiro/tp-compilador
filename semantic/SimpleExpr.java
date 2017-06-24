@@ -33,7 +33,7 @@ public class SimpleExpr extends Parser {
         	if (!Util.isNumeric(term.type) || !Util.isNumeric(simpleExprExt.type)) {
                 
         		if (!term.type.equals(simpleExprExt.type)) {
-                    System.out.println("Erro semantico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompatível o tipo do operando.");
+                    System.out.println("Erro semantico na linha " + Lexer.line + ":\n" + "Os operandos e operadores sao incompatíveis.");
                     error(token.toString());
                 }
             }

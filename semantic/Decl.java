@@ -54,7 +54,7 @@ public class Decl extends Parser {
                 break;
                 
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Declaração de variaveis nao encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "A declaração de variaveis nao foi encontrada.");
                 error(token.toString());
         }
 	}

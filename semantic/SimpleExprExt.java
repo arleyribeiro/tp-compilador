@@ -11,19 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //simple-expr-ext-> LAMBDA | addop term simple-expr-ext
-    private void simpleExprExt() throws IOException {
-        switch (token.tag) {
-            case '+': 
-            case '-': 
-            case Tag.OR:
-                addop();
-                term();
-                simpleExprExt();
-        }
-    }
-*/
 public class SimpleExprExt extends Parser {
    
     Addop addop;
@@ -51,7 +38,7 @@ public class SimpleExprExt extends Parser {
                    
                     if (!addop.type.equals(term.type)) {
                     
-                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n"  + "Operador incompatível com o type do operando.");
+                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n"  + "Operador incompatível com o operando.");
                         error(token.toString());
                         
                     }
@@ -64,7 +51,7 @@ public class SimpleExprExt extends Parser {
                 if (!simpleExprExt.type.equals("void")) {
                     
                     if (!Util.isNumeric(addop.type) || !Util.isNumeric(simpleExprExt.type)) {
-                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador incompatível com o type do operando.");
+                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador incompatível com o operando.");
                     
                         error(token.toString());
                     }

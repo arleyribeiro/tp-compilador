@@ -53,7 +53,7 @@ public class Stmt extends Parser {
                 break;
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando (IF/ASSIGN/DO/READ/WRITE) encontrado.");
                 error(token.toString());
                 
         }

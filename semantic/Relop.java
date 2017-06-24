@@ -88,7 +88,7 @@ public class Relop extends Parser {
 			
 		
 		    default:
-	            System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Operador relacional não encontrado.");
+	            System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Operador relacional não foi encontrado.");
                 error(token.toString());
 	                
 	    }

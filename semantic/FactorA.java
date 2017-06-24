@@ -33,7 +33,7 @@ public class FactorA extends Parser {
 	            factor = new Factor(this);
 	            factor.analysis();
 	            if ((!factor.type.equals("integer"))&&(!factor.type.equals("literal"))) {
-	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador númerico nao encontrado.");
+	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador númerico nao foi encontrado.");
 	                error(token.toString());
 	            }
 	            this.type = factor.type;
@@ -49,7 +49,7 @@ public class FactorA extends Parser {
 	            factor = new Factor(this);
 	            factor.analysis();
 	            if (!factor.type.equals("bool")) {
-	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador booleano nao encontrado.");
+	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador booleano nao foi encontrado.");
 	                error(token.toString());
 	            }
 	            this.type = factor.type;
@@ -66,7 +66,7 @@ public class FactorA extends Parser {
                 break;                
 
             default:
-                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Expressao nao encontrada.");
+                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "A expressao nao foi encontrada.");
                 error(token.toString());
         }
     }

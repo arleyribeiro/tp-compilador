@@ -31,7 +31,7 @@ public class Expression extends Parser {
         if (!expressionExt.type.equals("void")) {
             
             if (!simpleExpr.type.equals(expressionExt.type)) {
-                System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do operador e´ incompatível com Operando. ");
+                System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Os tipos de operandos sao incompativeis");
                 error(token.toString());
             }
             
