@@ -2,7 +2,7 @@ package lexer;
 import java.io.*;
 import java.util.*;
 import symbols.*;
-
+import parser.*;
 
 public class Lexer {
    public static int line = 1;
@@ -10,10 +10,10 @@ public class Lexer {
    private FileReader file;
    private int EOF = 65535;
    
-   private SymbolsTable words = SymbolsTable.getSymbolsTable();
+   public SymbolsTable words = SymbolsTable.getSymbolsTable();
 
    void reserve(Word w) {
-      words.put(w.lexeme, w);
+      words.put(w);
    }
 
    public Lexer(String filename) {
@@ -145,7 +145,7 @@ public class Lexer {
             return w;
 
          w = new Word(s, Tag.ID);
-         words.put(s, w);
+         words.put(w);
          return w;
       }
 
@@ -166,7 +166,7 @@ public class Lexer {
             return w;
 
          w = new Word(s, Tag.LITERAL);
-         words.put(s, w);
+         words.put(w);
          return w;
       }
 

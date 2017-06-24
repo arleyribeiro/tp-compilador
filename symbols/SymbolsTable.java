@@ -5,8 +5,8 @@ import lexer.*;
 
 public class SymbolsTable{
 
-	private static SymbolsTable table;
-	private HashMap<String, Word> hashMap;
+	public static SymbolsTable table;
+	public HashMap<String, Word> hashMap;
 
 	public SymbolsTable() {
 		hashMap = new HashMap<String, Word>();
@@ -20,7 +20,7 @@ public class SymbolsTable{
 		return table;
 	}
 	//(String s, int tag)
-	public void put(String lexeme, Word token) {
+	public void put(Word token) {
 		hashMap.put(token.lexeme, token);
 	}
 
