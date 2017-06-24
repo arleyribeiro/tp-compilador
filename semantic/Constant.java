@@ -10,23 +10,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//constant       -> num | literal
-private void constant() throws IOException {
-    switch (token.tag) {
-        case Tag.NUM:
-            eat(Tag.NUM);
-            break;
-        case Tag.LITERAL:
-            eat(Tag.LITERAL);
-            break;
-
-        default:
-            error(token.toString());
-    }
-}
-*/
-
 public class Constant extends Parser {
 
 	public Constant(Parser head) {
@@ -55,7 +38,7 @@ public class Constant extends Parser {
 		        break;
 
 		    default:
-		   		System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Constante númerica esperada porém não encontrada.");
+		   		System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Constante númerica nao encontrada.");
 		        error(token.toString());
 		}
 	}

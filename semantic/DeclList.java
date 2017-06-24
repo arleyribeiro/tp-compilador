@@ -11,16 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//decl-list      -> LAMBDA | decl ; decl-list
-private void declList() throws IOException {
-    if (token.tag == Tag.ID) {
-        decl();
-        eat(';');
-        declList();
-    }
-}
-*/
 public class DeclList extends Parser {
 
 	Decl decl;

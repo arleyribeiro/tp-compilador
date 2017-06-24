@@ -11,19 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//if-stmt-ext    -> LAMBDA | else begin stmt-list end
-private void ifStmtExt() throws IOException {
-    switch (token.tag) {
-        case Tag.ELSE:
-            eat(Tag.ELSE);
-            eat(Tag.BEGIN);
-            stmtList();
-            eat(Tag.END);
-            break;
-    }
-}
-*/
 public class IfStmtExt extends Parser {
 
     StmtList stmtList;
@@ -65,7 +52,7 @@ public class IfStmtExt extends Parser {
                 break;
 
              default:
-                System.out.println("Erro sintático na linha " + Lexer.line+ ":\n" + "Comando 'ELSE' esperado, porém não encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line+ ":\n" + "Comando 'ELSE' não encontrado.");
                 error(token.toString());
         }
 	}

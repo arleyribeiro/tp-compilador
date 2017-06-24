@@ -11,20 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//term-ext       -> mulop factor-a term-ext | lambda
-private void termExt() throws IOException {
-    switch (token.tag) {
-        case '*': 
-        case '/': 
-        case Tag.AND:
-            mulop();
-            factorA();
-            termExt();
-            break;
-    }
-}
-*/
 public class TermExt extends Parser {
 
     Mulop mulop;
@@ -53,7 +39,7 @@ public class TermExt extends Parser {
                     
                     if (!mulop.type.equals(factorA.type)) {
                     
-                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador incompatível com o type do operando.");
+                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompatível com tipo do operando.");
                         error(token.toString());
                     }
                 }
@@ -64,7 +50,7 @@ public class TermExt extends Parser {
                 if (!termExt.type.equals("void")) {
                     
                     if (!mulop.type.equals(termExt.type)) {
-                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador incompaível com o type do operando.");
+                        System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompatível com tipo do operando.");
                         error(token.toString());
                     }
                     

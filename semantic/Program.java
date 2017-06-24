@@ -11,16 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//program        -> init decl-list stmt-list stop
-public void program()  throws IOException {
-    eat(Tag.INIT);
-    declList();
-    stmtList();
-    eat(Tag.STOP);
-    System.out.println("Programa correto!\n");
-}
-*/
 public class Program extends Parser {
 
 	Identifier identifier;
@@ -49,17 +39,10 @@ public class Program extends Parser {
              
                
                 stmtList = new StmtList(this);
-                stmtList.analysis();
-            
-	                        
-           // default:
-          //      System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Declaração de inicialização do programa esperada, porém não encontrada.");
-           //     error(token.toString());            
+                stmtList.analysis();                        
         }else {     	
-
 	            stmtList = new StmtList(this);
 	            stmtList.analysis();
-
         }
 
         {

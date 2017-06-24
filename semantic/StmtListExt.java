@@ -11,22 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//stmt-list-ext  -> LAMBDA | stmt ; stmt-list-ext
-private void stmtListExt() throws IOException {
-    switch (token.tag) {
-        case Tag.ID:
-        case Tag.DO:
-        case Tag.IF:
-        case Tag.READ:
-        case Tag.WRITE:
-            stmt();
-            eat(';');
-            stmtListExt();
-            break;
-    }
-}
-*/
 public class StmtListExt extends Parser {
 
     Stmt stmt;

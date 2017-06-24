@@ -11,23 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//type           -> integer | string
-private void type()  throws IOException {
-    switch (token.tag) {
-        case Tag.INTEGER:
-            eat(Tag.INTEGER);
-            break;
-
-        case Tag.STRING:
-            eat(Tag.STRING);
-            break;
-
-        default:
-            error(token.toString());
-    }
-}
-*/
 public class Type extends Parser {
 
 	public Type(Parser head) {
@@ -62,7 +45,7 @@ public class Type extends Parser {
                 break;
                 
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Tipo esperado não encontrado");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Tipo nao encontrado");
                 error(token.toString());
         }
 	}

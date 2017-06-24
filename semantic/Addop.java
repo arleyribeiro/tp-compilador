@@ -53,7 +53,7 @@ public class Addop extends Parser {
             break;
 		    
 		    default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Operador aritmético esperado, porém nao encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Operador aritmético encontrado.");
                 error(token.toString());
 		}
 	}

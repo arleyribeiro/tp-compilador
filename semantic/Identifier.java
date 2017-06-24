@@ -9,24 +9,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-/*identifier -> id
-private void identifier() throws IOException {
-
-	switch (token.tag) {
-
-		case Tag.ID:
-
-			eat(Tag.ID);
-            break;
-
-        default:
-            erro();
-
-    }
-}
-
- */
 public class Identifier extends Parser {
 
 	public Identifier(Parser head) {
@@ -57,7 +39,7 @@ public class Identifier extends Parser {
 				} else { 
 					if (!tok.decl) {
 				
-						System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Utilização de identificador não definido '" + token.lexeme + "'.");
+						System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Variavel nao declarada '" + token.lexeme + "'.");
             			error(tok.toString());
 					}
 					

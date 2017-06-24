@@ -11,25 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//stmt-list      -> stmt ; stmt-list-ext
-private void stmtList() throws IOException {
-    switch (token.tag) {
-        case Tag.ID:
-        case Tag.DO:
-        case Tag.IF:
-        case Tag.READ:
-        case Tag.WRITE:
-            stmt();
-            eat(';');
-            stmtListExt();
-            break;
-
-        default:
-            error(token.toString());
-    }
-}
-*/
 public class StmtList extends Parser {
 
     Stmt stmt;
@@ -62,7 +43,7 @@ public class StmtList extends Parser {
                 break;
 
             default:
-                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Comando esperado não encontrado.");
+                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Comando não encontrado.");
                 error(token.toString());
         }
 	}

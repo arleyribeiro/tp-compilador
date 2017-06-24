@@ -11,30 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//stmt           -> assign-stmt | if-stmt | do-stmt | read-stmt | write-stmt
-private void stmt() throws IOException {
-    switch (token.tag) {
-        case Tag.ID:
-            assignStmt();
-            break;
-        case Tag.IF:
-            ifStmt();
-            break;
-        case Tag.DO:
-            doStmt();
-            break;
-        case Tag.READ:
-            readStmt();
-            break;
-        case Tag.WRITE:
-            writeStmt();
-            break;
-        default:
-            error(token.toString());
-    }
-}
-*/
 public class Stmt extends Parser {
 
     AssignStmt assignStmt;
@@ -77,7 +53,7 @@ public class Stmt extends Parser {
                 break;
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando esperado, porém não encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando encontrado.");
                 error(token.toString());
                 
         }

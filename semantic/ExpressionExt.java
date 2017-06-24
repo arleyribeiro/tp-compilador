@@ -11,23 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //expression-ext -> LAMBDA | relop simple-expr
-    //expression-ext -> LAMBDA | relop expression
-     private void expressionExt() throws IOException {
-        switch (token.tag) {
-          //  case '=': 
-            case '<': 
-            case '>': 
-            case Tag.EQ:
-            case Tag.NE:
-            case Tag.LE:
-            case Tag.GE:
-                relop();
-                expression();
-        }
-    }
-*/
 public class ExpressionExt extends Parser {
 
     Relop relop;
@@ -54,7 +37,7 @@ public class ExpressionExt extends Parser {
                 
                 if ((!expression.type.equals("integer")) && (!expression.type.equals("literal"))) {
                     
-                    System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador incompatível com o type do operando.");
+                    System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompatível com operando.");
                     error(token.toString());
                 }
                 

@@ -11,15 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //write-stmt     -> write ( writable )
-    private void writeStmt() throws IOException {
-        eat(Tag.WRITE);
-        eat('(');
-        writable();
-        eat(')');
-    }
-*/
 public class WriteStmt extends Parser {
 
     Writable writable;
@@ -61,7 +52,7 @@ public class WriteStmt extends Parser {
                 break;
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando de escrita esperado mas não encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando  WRITE encontrado.");
                 error(token.toString());
         }
 	}

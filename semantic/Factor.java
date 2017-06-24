@@ -10,27 +10,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//factor         -> identifier | constant | ( expression )
-private void factor() throws IOException {
-    switch (token.tag) {
-        case Tag.ID: 
-            identifier();
-            break;
-        case Tag.NUM:
-        case Tag.LITERAL:
-            constant();
-            break;
-        case '(':
-            eat('(');
-            expression();
-            eat(')');
-            break;
-        default:
-            error(token.toString());
-    }
-}
-*/
 public class Factor extends Parser {
 
     Identifier identifier;
@@ -82,7 +61,7 @@ public class Factor extends Parser {
             break;                                                                                                                                
             
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Expressão esperada não encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Expressão não encontrada.");
                 error(token.toString());
         }
     }

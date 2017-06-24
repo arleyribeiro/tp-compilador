@@ -11,16 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//ident-list-ext -> LAMBDA | , identifier ident-list-ext
-private void identListExt() throws IOException {
-    if(token.tag == ',') {
-        eat(',');
-        eat(Tag.ID);
-        identListExt();
-    }
-}
-*/
 public class IdentListExt extends Parser {
 
 	Identifier identifier;

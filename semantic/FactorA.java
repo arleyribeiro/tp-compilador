@@ -10,30 +10,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-
-//factor-a       -> factor | not factor | - factor
-private void factorA() throws IOException {
-    switch (token.tag) {
-        case '-': 
-            eat('-');
-            factor();
-            break;
-        case Tag.NOT:
-            eat(Tag.NOT);
-            factor();
-            break;
-        case '(':
-        case Tag.ID: 
-        case Tag.NUM:
-        case Tag.LITERAL:
-            factor();
-            break;
-        default:
-            error(token.toString());
-    }
-}
-*/
 public class FactorA extends Parser {
 
 	Factor factor;
@@ -57,7 +33,7 @@ public class FactorA extends Parser {
 	            factor = new Factor(this);
 	            factor.analysis();
 	            if ((!factor.type.equals("integer"))&&(!factor.type.equals("literal"))) {
-	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador númerico esperado.");
+	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador númerico nao encontrado.");
 	                error(token.toString());
 	            }
 	            this.type = factor.type;
@@ -73,7 +49,7 @@ public class FactorA extends Parser {
 	            factor = new Factor(this);
 	            factor.analysis();
 	            if (!factor.type.equals("bool")) {
-	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador booleano esperado.");
+	                System.out.println("Erro Semântico na linha " + Lexer.line + ":\n" + "Operador booleano nao encontrado.");
 	                error(token.toString());
 	            }
 	            this.type = factor.type;
@@ -90,7 +66,7 @@ public class FactorA extends Parser {
                 break;                
 
             default:
-                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Expressao esperada nao encontrada.");
+                System.out.println("Erro sintatico na linha " + Lexer.line + ":\n" + "Expressao nao encontrada.");
                 error(token.toString());
         }
     }

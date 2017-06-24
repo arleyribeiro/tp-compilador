@@ -11,15 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //read-stmt      -> read ( identifier )
-    private void readStmt() throws IOException {
-        eat(Tag.READ);
-        eat('(');
-        identifier();
-        eat(')');
-    }
-*/
 public class ReadStmt extends Parser {
 
     Identifier identifier;
@@ -53,7 +44,6 @@ public class ReadStmt extends Parser {
                 identifier = new Identifier(this);
                 identifier.analysis();
                 
-                //System.out.println("Aqui REadstmt");
                 {
                     try {
                         eat(')');
@@ -65,7 +55,7 @@ public class ReadStmt extends Parser {
                 break;
                 
                 default:
-                    System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando de entrada esperado mas não encontrado.");
+                    System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando de entrada não encontrado.");
                     error(token.toString());
         }
 	}

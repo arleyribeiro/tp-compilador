@@ -11,13 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //expression     -> simple-expr expression-ext
-    private void expression() throws IOException {
-        simpleExpr();
-        expressionExt();
-    }
-*/
 public class Expression extends Parser {
 
     SimpleExpr simpleExpr;
@@ -38,7 +31,7 @@ public class Expression extends Parser {
         if (!expressionExt.type.equals("void")) {
             
             if (!simpleExpr.type.equals(expressionExt.type)) {
-                System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador com type incompatível com o operando. ");
+                System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do operador e´ incompatível com Operando. ");
                 error(token.toString());
             }
             

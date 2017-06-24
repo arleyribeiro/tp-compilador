@@ -11,13 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//ident-list     -> identifier ident-list-ext
-private void identList() throws IOException {
-    identifier();
-    identListExt();
-}
-*/
 public class IdentList extends Parser {
 
 	Identifier identifier;
@@ -44,7 +37,7 @@ public class IdentList extends Parser {
                 break;
             
     		default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Lista de identificadores esperada, porém não encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Lista de identificadores não encontrada.");
                 error(token.toString());
         }
 	}

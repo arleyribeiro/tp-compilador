@@ -11,13 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//term           -> factor-a term-ext
-private void term() throws IOException {
-    factorA();
-    termExt();
-}
-*/
 public class Term extends Parser {
 
 	FactorA factorA;
@@ -41,7 +34,7 @@ public class Term extends Parser {
 		        
 				if (!factorA.type.equals(termExt.type)) {
 		        
-		            System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Operador incompaível com o type do operando.");
+		            System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipo do Operador incompaível com tipo do operando.");
 		            error(token.toString());
 		        }
 		    }

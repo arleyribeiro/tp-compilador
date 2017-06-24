@@ -11,19 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//if-stmt        -> if ( expression ) begin stmt-list end if-stmt-ext
-private void ifStmt() throws IOException {
-    eat(Tag.IF);
-    eat('(');
-    expression();
-    eat(')');
-    eat(Tag.BEGIN);
-    stmtList();
-    eat(Tag.END);
-    ifStmtExt();
-}
-*/
 public class IfStmt extends Parser {
 
     Expression expression;
@@ -91,7 +78,7 @@ public class IfStmt extends Parser {
                 break;
                 
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando 'IF' esperado, porém não encontrado.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Comando 'IF' não encontrado.");
                 error(token.toString());
         }
 	}

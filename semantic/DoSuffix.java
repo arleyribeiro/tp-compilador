@@ -11,15 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //do-suffix      -> while ( expression )
-    private void doSuffix() throws IOException {
-        eat(Tag.WHILE);
-        eat('(');
-        expression();
-        eat(')');
-    }
-*/
 public class DoSuffix extends Parser {
 
     Expression expression;

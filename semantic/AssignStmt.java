@@ -9,15 +9,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-
-//assign-stmt    -> identifier := simple_expr
-private void assignStmt() throws IOException {
-    eat(Tag.ID);
-    eat(Tag.ASSIGN);
-    simpleExpr();
-}
-*/
 public class AssignStmt extends Parser {
 
 	Identifier identifier;
@@ -55,7 +46,7 @@ public class AssignStmt extends Parser {
                 break;
             
     		default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Atribuição esperada, porém nao encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Atribuição nao encontrada.");
                 error(token.toString());
                 
         }

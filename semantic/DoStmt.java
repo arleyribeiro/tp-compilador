@@ -11,14 +11,6 @@ import parser.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-    //do-stmt        -> do stmt-list do-suffix
-    private void doStmt() throws IOException {
-        eat(Tag.DO);
-        stmtList();
-        doSuffix();
-    }
-*/
 public class DoStmt extends Parser {
 
     Expression expression;

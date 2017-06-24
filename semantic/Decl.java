@@ -11,14 +11,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-//decl           -> ident-list is type
-private void decl() throws IOException {
-    identList();
-    eat(Tag.IS);
-    type();
-}
-*/
 public class Decl extends Parser {
 
 	Type type;
@@ -62,7 +54,7 @@ public class Decl extends Parser {
                 break;
                 
             default:
-                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Declaração de variaveis esperada, porém não encontrada.");
+                System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Declaração de variaveis nao encontrada.");
                 error(token.toString());
         }
 	}
