@@ -21,39 +21,34 @@ public class IfStmtExt extends Parser {
 
 	@Override
 	public void analysis () {
-        switch (token.tag) {
-            case Tag.ELSE:
-                {
-                    try {
-                        eat(Tag.ELSE);
-                    } catch (IOException ex) {
-                        Logger.getLogger(IfStmtExt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        if (token.tag == Tag.ELSE) {
+            
+            {
+                try {
+                    eat(Tag.ELSE);
+                } catch (IOException ex) {
+                    Logger.getLogger(IfStmtExt.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
 
-                {
-                    try {
-                        eat(Tag.BEGIN);
-                    } catch (IOException ex) {
-                        Logger.getLogger(IfStmtExt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }    
-                
-                stmtList = new StmtList(this);
-                stmtList.analysis();
-                
-                {
-                    try {
-                        eat(Tag.END);
-                    } catch (IOException ex) {
-                        Logger.getLogger(IfStmtExt.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            {
+                try {
+                    eat(Tag.BEGIN);
+                } catch (IOException ex) {
+                    Logger.getLogger(IfStmtExt.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                break;
-
-             default:
-                System.out.println("Erro sintático na linha " + Lexer.line+ ":\n" + "Comando 'ELSE' não encontrado.");
-                error(token.toString());
+            }    
+            
+            stmtList = new StmtList(this);
+            stmtList.analysis();
+            
+            {
+                try {
+                    eat(Tag.END);
+                } catch (IOException ex) {
+                    Logger.getLogger(IfStmtExt.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
 	}
 }

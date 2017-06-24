@@ -57,7 +57,7 @@ public class Identifier extends Parser {
 				break;	
 				
 			default:
-				System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Identificador esperado, porém não encontrada.");
+				System.out.println("Erro sintático na linha " + Lexer.line + ":\n" + "Identificador nao foi encontrado.");
 				//error(tok.toString());
 
 		}
