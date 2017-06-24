@@ -32,6 +32,7 @@ public class SimpleExprExt extends Parser {
 
 	public SimpleExprExt(Parser head) {
 		super(head);
+        this.type = head.type;
 	}
 
 	@Override

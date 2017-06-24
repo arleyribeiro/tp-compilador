@@ -39,18 +39,15 @@ public class Identifier extends Parser {
 		switch(token.tag) {
 			case Tag.ID:
 
-				//lexer.print(token);
 				/*trocar de token para word*/
-				Word  tok = symbolsTable.get(token.lexeme);
+				Token  tok = symbolsTable.get(token.lexeme);
 				
 				if (isDecl) {
-					System.out.println(isDecl);
-
 					this.type = head.type;
 					
 					if (tok != null) {
 						
-						tok = new Word(token.lexeme, Tag.ID);
+						tok = new Token(token.lexeme, Tag.ID);
 						tok.type = this.type;
 						symbolsTable.put(tok);
 						idList.add(tok);

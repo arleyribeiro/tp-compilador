@@ -33,6 +33,7 @@ public class TermExt extends Parser {
 
 	public TermExt(Parser head) {
 		super(head);
+        this.type = head.type;
 	}
 
 	@Override

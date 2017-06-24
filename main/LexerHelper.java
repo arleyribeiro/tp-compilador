@@ -12,9 +12,9 @@ public class LexerHelper {
 		if (token.tag == Tag.NUM)
 			System.out.println("NUM:     " + ((Num)token).value);
 		else if (token.tag == Tag.ID)
-			System.out.println("ID:      " + ((Word)token).lexeme);
+			System.out.println("ID:      " + token.lexeme);
 		else if (token.tag == Tag.LITERAL)
-			System.out.println("LITERAL: " + ((Word)token).lexeme);
+			System.out.println("LITERAL: " + token.lexeme);
 		else if (token.tag < 256)
 			System.out.println("         " + (char)token.tag);
 		else

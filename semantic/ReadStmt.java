@@ -53,7 +53,7 @@ public class ReadStmt extends Parser {
                 identifier = new Identifier(this);
                 identifier.analysis();
                 
-                System.out.println("Aqui REadstmt");
+                //System.out.println("Aqui REadstmt");
                 {
                     try {
                         eat(')');

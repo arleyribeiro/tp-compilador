@@ -47,7 +47,7 @@ public class AssignStmt extends Parser {
                 simpleExpr = new SimpleExpr(this);
                 simpleExpr.analysis();
                 if (!Util.canAssign(identifier.type, simpleExpr.type)) {
-                    
+    
                 	System.out.println("Erro semântico na linha " + Lexer.line + ":\n" + "Tipos incompatíveis.");
                     error(token.toString());
                 }

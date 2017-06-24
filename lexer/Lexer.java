@@ -12,7 +12,7 @@ public class Lexer {
    
    public SymbolsTable words = SymbolsTable.getSymbolsTable();
 
-   void reserve(Word w) {
+   void reserve(Token w) {
       words.put(w);
    }
 
@@ -24,22 +24,22 @@ public class Lexer {
          System.out.println("File not found.");
       }
 
-      reserve(new Word("init",    Tag.INIT));
-      reserve(new Word("stop",    Tag.STOP));
-      reserve(new Word("is",      Tag.IS));
-      reserve(new Word("integer", Tag.INTEGER));
-      reserve(new Word("string",  Tag.STRING));
-      reserve(new Word("if",      Tag.IF));
-      reserve(new Word("else",    Tag.ELSE));
-      reserve(new Word("begin",   Tag.BEGIN));
-      reserve(new Word("end",     Tag.END));
-      reserve(new Word("do",      Tag.DO));
-      reserve(new Word("while",   Tag.WHILE));
-      reserve(new Word("read",    Tag.READ));
-      reserve(new Word("write",   Tag.WRITE));
-      reserve(new Word("not",     Tag.NOT));
-      reserve(new Word("or",      Tag.OR));
-      reserve(new Word("and",     Tag.AND));
+      reserve(new Token("init",    Tag.INIT));
+      reserve(new Token("stop",    Tag.STOP));
+      reserve(new Token("is",      Tag.IS));
+      reserve(new Token("integer", Tag.INTEGER));
+      reserve(new Token("string",  Tag.STRING));
+      reserve(new Token("if",      Tag.IF));
+      reserve(new Token("else",    Tag.ELSE));
+      reserve(new Token("begin",   Tag.BEGIN));
+      reserve(new Token("end",     Tag.END));
+      reserve(new Token("do",      Tag.DO));
+      reserve(new Token("while",   Tag.WHILE));
+      reserve(new Token("read",    Tag.READ));
+      reserve(new Token("write",   Tag.WRITE));
+      reserve(new Token("not",     Tag.NOT));
+      reserve(new Token("or",      Tag.OR));
+      reserve(new Token("and",     Tag.AND));
    }
 
    
@@ -100,21 +100,21 @@ public class Lexer {
 
       switch(ch) {
          case ':':
-            return readch('=') ? Word.assign : new Token(':');
+            return readch('=') ? Token.assign : new Token(':');
          case '=':
             ch = ' ';
-            return  Word.eq;
+            return  Token.eq;
          case '>':
-            return readch('=') ? Word.ge : new Token('>');
+            return readch('=') ? Token.ge : new Token('>');
          case '<':
             readch();
             if (ch == '=') {
                ch = ' ';
-               return Word.le;
+               return Token.le;
             }
             if (ch == '>') {
                ch = ' ';
-               return Word.ne;
+               return Token.ne;
             }
             return new Token('<');
       }
@@ -139,12 +139,12 @@ public class Lexer {
          } while(Character.isLetterOrDigit(ch) || ch == '_');
 
          String s = b.toString();
-         Word w = (Word)words.get(s.toLowerCase());
+         Token w = (Token)words.get(s.toLowerCase());
 
          if (w != null)
             return w;
 
-         w = new Word(s, Tag.ID);
+         w = new Token(s, Tag.ID);
          words.put(w);
          return w;
       }
@@ -160,12 +160,12 @@ public class Lexer {
          readch();
 
          String s = b.toString();
-         Word w = (Word)words.get(s.toLowerCase());
+         Token w = (Token)words.get(s.toLowerCase());
 
          if (w != null)
             return w;
 
-         w = new Word(s, Tag.LITERAL);
+         w = new Token(s, Tag.LITERAL);
          words.put(w);
          return w;
       }

@@ -8,6 +8,7 @@ public class Num extends Token {
 	public Num(int v) {
 		super(Tag.NUM);
 		value = v;
+		this.type = "integer";
 	}
 	
 	public String toString() {

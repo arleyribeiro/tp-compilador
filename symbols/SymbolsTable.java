@@ -6,10 +6,10 @@ import lexer.*;
 public class SymbolsTable{
 
 	public static SymbolsTable table;
-	public HashMap<String, Word> hashMap;
+	public HashMap<String, Token> hashMap;
 
 	public SymbolsTable() {
-		hashMap = new HashMap<String, Word>();
+		hashMap = new HashMap<String, Token>();
 	}
 
 	public static SymbolsTable getSymbolsTable() {
@@ -20,12 +20,12 @@ public class SymbolsTable{
 		return table;
 	}
 	//(String s, int tag)
-	public void put(Word token) {
+	public void put(Token token) {
 		hashMap.put(token.lexeme, token);
 	}
 
-	public Word get(String lexeme) {
-		Word token = hashMap.get(lexeme);
+	public Token get(String lexeme) {
+		Token token = hashMap.get(lexeme);
 		return token;
 	}
 }

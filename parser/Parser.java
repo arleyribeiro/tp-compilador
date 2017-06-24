@@ -34,8 +34,6 @@ public abstract class Parser {
         
     	if (token.tag == tag) {
             
-    		//System.out.println("eat " + token);
-            
             lexer.print(token);
             token = lex.scan();
             

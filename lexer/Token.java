@@ -26,4 +26,13 @@ public class Token {
 	public String toString() {
 		return "" + (char)tag;
 	}
+
+	public static final Token
+
+      eq      = new Token( "=", Tag.EQ),
+      ne      = new Token( "<>", Tag.NE),
+      le      = new Token( "<=", Tag.LE),
+      ge      = new Token( ">=", Tag.GE),
+      assign  = new Token( ":=", Tag.ASSIGN);
+      
 }

@@ -47,6 +47,7 @@ public class Type extends Parser {
                     }
                 }
                 this.type = "integer";
+                
                 break;
                 
             case Tag.STRING:
