@@ -52,6 +52,6 @@ public class Program extends Parser {
                 Logger.getLogger(Program.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println("Analise semantica concluida com sucesso!");
+        System.out.println("Analise semântica concluída com sucesso!");
 	}
 }

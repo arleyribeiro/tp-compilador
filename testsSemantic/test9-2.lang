@@ -1,4 +1,5 @@
 init
+    a, b is string;
 	if( a = b) begin
 	read(a);
 	end;

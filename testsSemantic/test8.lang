@@ -1,7 +1,6 @@
 init
-	a;
+	a is string;
 
 	read(a);
 	
-
 stop

@@ -57,6 +57,7 @@ public class FactorA extends Parser {
         
 
 	        case '(':
+	        case '"':
 	        case Tag.ID: 
 	        case Tag.NUM:
 	        case Tag.LITERAL:
